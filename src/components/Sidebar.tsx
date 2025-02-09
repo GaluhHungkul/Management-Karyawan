@@ -3,7 +3,9 @@
 import { HomeIcon,  PanelRightClose, UserPlus } from "lucide-react"
 import { motion } from "motion/react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import {  ElementType, useState } from "react"
+
 
 interface IsideBarNav {
   id : number;
@@ -21,6 +23,8 @@ const Sidebar = () => {
 
     const [showSidebar, setShowSidebar] = useState<boolean>(false)   
 
+    const pathname = usePathname()
+
   return (
     <motion.div 
     style={{
@@ -33,7 +37,7 @@ const Sidebar = () => {
           </button>
           <nav className="flex flex-grow flex-col mt-8">
               {sideBarNav.map((item) => (
-                <Link className="flex gap-4 pl-6 py-4 items-center text-gray-200  hover:bg-blue-500 hover:scale-110 duration-200 hover:text-white" href={item.href} key={item.id}>
+                <Link className={`flex gap-4 pl-6 py-4 items-center text-gray-200   hover:scale-110 duration-200  ${pathname == item.href ? 'scale-110 bg-blue-800' : 'hover:bg-blue-500 hover:text-white'}`} href={item.href} key={item.id}>
                   <item.icon size={24} className="min-w-10"/>
                   { showSidebar && 
                   <motion.span
